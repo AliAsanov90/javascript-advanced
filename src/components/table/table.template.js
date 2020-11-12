@@ -12,13 +12,22 @@ function toCell (cell) {
 }
 
 function toColumn (col) {
-  return `<div class="column">${col}</div>`
+  return `
+    <div class="column">
+      ${col}
+      <div class="col-resize" data-resize="col"></div>      
+    </div>
+  `
 }
 
 function createRow (rowNumber, content) {
+  const resize = rowNumber ? '<div class="row-resize" data-resize="row"></div>' : ''
   return `
     <div class="row">
-      <div class="row-info">${rowNumber || ''}</div>
+      <div class="row-info">
+        ${rowNumber || ''}
+        ${resize}
+      </div>
       <div class="row-data">${content}</div>
     </div>
   `
@@ -41,7 +50,7 @@ export function createTable (rowsCount = 15) {
     .join('')
 
   for (let i = 0; i < rowsCount; i++) {
-    const rowNumber = String(i + 1)
+    const rowNumber = i + 1
     rows.push(createRow(rowNumber, cells))
   }
 
